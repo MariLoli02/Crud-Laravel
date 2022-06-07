@@ -3,6 +3,8 @@
         <div class="bg-gray-300 rounded-2xl border shadow-x1 p-10 max-w-lg">
             <div class="flex flex-col items-center">
                 <x-form action="{{ route('courses.update', $course)}}" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
                     <x-form-input name="nombre" label="Nombre:" value="{{$course->nombre}}" class="rounded" />
                     <x-form-textarea  name="descripcion" label="Descripcion:" default="{{$course->descripcion}}" class="rounded" style="height: 146px;"/>
                     <x-form-group name="activo" label="Activo:" inline>
