@@ -93,7 +93,7 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        $request->validate([
+         $request->validate([
             'nombre'=>['required', 'string', 'min:3', 'unique:courses,nombre,'.$course->id],
             'descripcion'=>['required', 'string', 'min:5'],
             'activo'=>['required'], 
@@ -101,7 +101,7 @@ class CourseController extends Controller
             'image'=>['nullable', 'image', 'max:2048']
         ]);
 
-        $imagen = $request->image;
+        $imagen = $course->image;
 
         if($request->image){
             Storage::delete($course->image);
@@ -109,7 +109,7 @@ class CourseController extends Controller
         }
 
         $course->update([
-            'nombre'=>$request->image,
+            'nombre'=>$request->nombre,
             'descripcion'=>$request->descripcion,
             'activo'=>$request->activo,
             'category_id'=>$request->category_id,
