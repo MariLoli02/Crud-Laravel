@@ -41,3 +41,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->resource('courses', CourseController::class);
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->put('courses1/{course}', [CourseController::class, 'cambiarActivo'])->name('courses.cambiarActivo');

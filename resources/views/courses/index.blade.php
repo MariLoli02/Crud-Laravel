@@ -44,15 +44,18 @@
                                             <div class="text-left">{{ $item->descripcion }}</div>
                                         </td>
                                         <td class="p-2">
-                                            <div
-                                                class="text-center @if ($item->activo == 'Si') text-green-400 @else text-red-400 @endif">
-                                                {{ $item->activo }}</div>
+                                            <form action="{{route('courses.cambiarActivo', $item)}}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="text-center @if ($item->activo == 'Si') text-green-400 @else text-red-400 @endif">
+                                                    {{ $item->activo }}
+                                                </button>
+                                            </form>
                                         </td>
 
                                         <td class="p-2 whitespace-nowrap">
                                             <div class="text-left">
                                                 <form action="{{ route('courses.destroy', $item) }}" method="POST">
-                                                    <!-- LOS DOS @ SE NECESITAN PARA QUE LARAVEL FUNCIONE -->
                                                     @csrf
                                                     @method('DELETE')
                                                     <a href="{{ route('courses.edit', $item) }}"

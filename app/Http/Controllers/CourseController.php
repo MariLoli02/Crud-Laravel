@@ -116,8 +116,7 @@ class CourseController extends Controller
             'image'=>$imagen
         ]);
 
-        return redirect()->route('courses.index')->with('info', 'Curso Actualizado con Éxito')
-
+        return redirect()->route('courses.index')->with('info', 'Curso Actualizado con Éxito');
 
     }
 
@@ -130,9 +129,27 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         $imagen = $course->image;
-        unlink(storage_path('app/public/'.$course->image));
+        
+        Storage::delete($imagen);
+
         $course->delete();
 
         return redirect()->route('courses.index')->with('info', 'Curso Eliminado con Éxito');
+    }
+
+    public function cambiarActivo(Course $course){
+        $activo = $course->activo;
+        if($course->activo =='Si'){
+            $activo = 2;
+        }
+        if($course->activo == 'No'){
+            $activo = 1;
+        }
+
+        $course->update([
+            'activo'=>$activo
+        ]);
+
+        return redirect()->route('courses.index')->with('info', 'Estado del Curso Actualizado con Éxito');
     }
 }
